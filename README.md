@@ -11,12 +11,11 @@ Built for scalability, Strara automatically collects and requires ModuleScripts 
 - ⚡ Simple and fast requiring system
 - 🖥️ Server/Client logging support
 
-## 🚀 Usage
-
+## How to use Strara2
 ```lua
 -- Require the strara module on your script.
-local Strara = require(path.to.Strara);
+local Strara2 = require(path.to.Strara);
 
 -- Loads strara
-Strara.load(path);
+Strara2.load(path);
 ```
