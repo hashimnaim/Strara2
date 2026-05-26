@@ -1,5 +1,6 @@
-# Strara
-A lightweight and simple module loader for Roblox projects.
+# Strara2
+Strara2 is a lightweight module loader and requries modules at light-speed.
+It is strictly typed and easy to use for both server-sides and client-sides.
 
 Built for scalability, Strara automatically collects and requires ModuleScripts from folders and tags, making it easy to organize and initialize your game systems.
 
@@ -13,7 +14,9 @@ Built for scalability, Strara automatically collects and requires ModuleScripts 
 ## 🚀 Usage
 
 ```lua
-local Strara = require(path.to.Strara)
+-- Require the strara module on your script.
+local Strara = require(path.to.Strara);
 
-Strara:load(someFolder)
+-- Loads strara
+Strara.load(path);
 ```
