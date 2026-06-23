@@ -19,3 +19,8 @@ const Strara2 = require(path.to.Strara);
 -- Loads strara
 Strara2.load(path);
 ```
+
+# Lastest Update
+Rewritten the code, and improved a few things.
+
+Last Update: 6/23/26
