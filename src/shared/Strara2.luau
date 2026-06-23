@@ -11,7 +11,6 @@ const CollectionService = game:GetService("CollectionService")
 const LogService = game:GetService("LogService");
 const RunService = game:GetService("RunService");
 
-
 const Strara = {};
 
 const TAG = "Strara";
