@@ -1,19 +1,23 @@
 --!strict
 --@author: hashim.naim
-const CollectionService = game:GetService("CollectionService")
-const RunService = game:GetService("RunService");
-
+--@date: 6/23/26 [REWRITTEN]
 --[[
     STRARA is a lightweight module loader and requries modules at light-speed.
     It is strictly typed and easy to use for both server-sides and client-sides.
 
     Thank you for using my module loader!~
 ]]
+const CollectionService = game:GetService("CollectionService")
+const LogService = game:GetService("LogService");
+const RunService = game:GetService("RunService");
+
 
 const Strara = {};
 
 const TAG = "Strara";
 
+--@brief Will grab modules and store them into a table in a given path.
+--@param Grabs the folder path.
 const function getAllModules(folder: Folder)
     local grabbedModules: {ModuleScript} = {};
 
@@ -33,6 +37,8 @@ const function getAllModules(folder: Folder)
     return grabbedModules;
 end;
 
+--@brief Will grab the tagged modules and store them into a table.
+--@tag STRARA
 const function getTaggedModules()
     local grabbedModules: {ModuleScript} = {};
 
@@ -45,6 +51,8 @@ const function getTaggedModules()
     return grabbedModules;
 end;
 
+--@brief It will require the modules that are stored inside of the currentModules table and the taggedModules table.
+--@param Needs the folder path due to getAllModules() requring the folder path.
 const function requireModules(folder: Folder)
     local currentModules: {ModuleScript} = getAllModules(folder);
     local taggedModules: {ModuleScript} = getTaggedModules();
@@ -54,20 +62,34 @@ const function requireModules(folder: Folder)
             local startTime = os.clock();
             local deltaTime = os.clock() - startTime;
 
-            warn(`> [S] requiring: {module.Name}`);
             task.spawn(function()
-                require(module)
-                return warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                warn(`> [S] requiring: {module.Name}`);
+                const success, errorMessage = pcall(function()
+                    return require(module)
+                end);
+
+                if success then
+                    return LogService:Warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                else
+                    return LogService:Warn(`> [S] {module.Name} unsuccessful require. {errorMessage}`);
+                end;
             end);
         else
             if RunService:IsClient() then
                 local startTime = os.clock();
                 local deltaTime = os.clock() - startTime;
                 
-                warn(`> [C] requiring: {module.Name}`);
                 task.spawn(function()
-                    require(module)
-                    return warn(`> [C] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                    warn(`> [C] requiring: {module.Name}`);
+                    const success, errorMessage = pcall(function()
+                        return require(module)
+                    end);
+
+                    if success then
+                        return LogService:Warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                    else
+                        return LogService:Warn(`> [S] {module.Name} unsuccessful require. {errorMessage}`);
+                    end;
                 end);
             end;
         end;
@@ -78,26 +100,42 @@ const function requireModules(folder: Folder)
             local startTime = os.clock();
             local deltaTime = os.clock() - startTime;
 
-            warn(`> [S] requiring: {module.Name}`);
             task.spawn(function()
-                require(module)
-                return warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                warn(`> [S] requiring: {module.Name}`);
+                const success, errorMessage = pcall(function()
+                    return require(module)
+                end);
+
+                if success then
+                    return LogService:Warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                else
+                    return LogService:Warn(`> [S] {module.Name} unsuccessful require. {errorMessage}`);
+                end;
             end);
         else
             if RunService:IsClient() then
                 local startTime = os.clock();
                 local deltaTime = os.clock() - startTime;
                 
-                warn(`> [C] requiring: {module.Name}`);
                 task.spawn(function()
-                    require(module)
-                    return warn(`> [C] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                    warn(`> [C] requiring: {module.Name}`);
+                    const success, errorMessage = pcall(function()
+                        return require(module)
+                    end);
+
+                    if success then
+                        return LogService:Warn(`> [S] {module.Name} has been required, time it took: {string.format("%.4f", deltaTime)}`);
+                    else
+                        return LogService:Warn(`> [S] {module.Name} unsuccessful require. {errorMessage}`);
+                    end;
                 end);
             end;
         end;
     end;
 end;
 
+--@brief Loads the strara.
+--@param Folder path.
 function Strara.load(path: Folder)
     requireModules(path)
 end;
